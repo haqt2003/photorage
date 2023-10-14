@@ -52,8 +52,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { auth } from "@/configs/firebase";
-import { signOut } from "firebase/auth";
+import { useSignOut } from "@/composables/useSignOut";
 import { useStorage } from "@/composables/useStorage";
 export default {
   setup() {
@@ -61,20 +60,15 @@ export default {
     const router = useRouter();
     const file = ref(null);
     const { uploadFile, error, isPending } = useStorage("album");
+    const { signout } = useSignOut();
 
     function onLogout() {
       isLogout.value = !isLogout.value;
     }
 
-    function logOut() {
-      signOut(auth)
-        .then(() => {
-          router.push({ name: "SignIn", params: {} });
-          console.log("success");
-        })
-        .catch(() => {
-          console.log("fail");
-        });
+    async function logOut() {
+      await signout();
+      router.push({ name: "SignIn", params: {} });
     }
 
     async function onChangeFile(e) {

@@ -31,7 +31,12 @@ const routes = [
     name: "StorageView",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/StorageView.vue"),
-    beforeEnter: requireAuth,
+  },
+  {
+    path: "/details/:id",
+    name: "DetailsView",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/DetailsView.vue"),
   },
 ];
 

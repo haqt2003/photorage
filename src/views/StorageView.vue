@@ -30,10 +30,13 @@
         class="flex justify-between items-center flex-wrap mt-8 cursor-pointer"
       >
         <div
-          v-for="file in listFile"
-          :key="file"
+          @click.self="goToDetails"
+          v-for="(file, index) in listFile"
+          :key="index"
           class="img bg-cover bg-no-repeat bg-center"
           :style="`background-image: url('${file}');`"
+          :data-url="file"
+          :data-id="index"
         ></div>
       </div>
     </div>
@@ -44,14 +47,14 @@
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useGetFile } from "@/composables/useGetFile";
-import { auth } from "@/configs/firebase";
-import { signOut } from "firebase/auth";
+import { useSignOut } from "@/composables/useSignOut";
 import { storage, ref as prjRef, getDownloadURL } from "@/configs/firebase";
 export default {
   setup() {
     const isLogout = ref(false);
     const router = useRouter();
     const { getFile, error } = useGetFile("album");
+    const { signout } = useSignOut();
     const listFile = reactive([]);
 
     function onBack() {
@@ -62,14 +65,19 @@ export default {
       isLogout.value = !isLogout.value;
     }
 
-    function logOut() {
-      signOut(auth)
-        .then(() => {
-          router.push({ name: "SignIn", params: {} });
-        })
-        .catch(() => {
-          console.log("fail");
+    async function logOut() {
+      await signout();
+      router.push({ name: "SignIn", params: {} });
+    }
+
+    function goToDetails(e) {
+      if (e.target) {
+        router.push({
+          name: "DetailsView",
+          params: { id: e.target.dataset.id },
+          query: { url: e.target.dataset.url },
         });
+      }
     }
 
     async function getData() {
@@ -89,6 +97,7 @@ export default {
       onBack,
       onLogout,
       logOut,
+      goToDetails,
       error,
       listFile,
       isLogout,
