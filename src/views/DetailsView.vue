@@ -36,22 +36,24 @@
           @click="onShare"
           src="../assets/images/svg/share.svg"
           alt=""
-          class=""
+          class="cursor-pointer"
         />
         <img
           @click="onDownload"
           src="../assets/images/svg/download.svg"
           alt=""
-          class="ml-16"
+          class="ml-16 cursor-pointer"
         />
         <img
           @click="onDelete"
           src="../assets/images/svg/delete.svg"
           alt=""
-          class="ml-16"
+          class="ml-16 cursor-pointer"
         />
       </div>
-      <span @click="goToUpload" class="block font-semibold mt-16 text-center"
+      <span
+        @click="goToUpload"
+        class="block font-semibold mt-16 text-center cursor-pointer"
         >Upload new photo</span
       >
     </div>
