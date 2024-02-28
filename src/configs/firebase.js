@@ -9,13 +9,12 @@ import {
 } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqyAi0RzOYYJzZtu86z6nHB6CfX2xKIjU",
-  authDomain: "photorage-4d71c.firebaseapp.com",
-  projectId: "photorage-4d71c",
-  storageBucket: "photorage-4d71c.appspot.com",
-  messagingSenderId: "630359127354",
-  appId: "1:630359127354:web:d0d249ed80cb0dd36a0c03",
-  measurementId: "G-W0MELGYRM7",
+  apiKey: "AIzaSyDxlNq4HBvVZLgkl8GIzENGt5fm2vs0Hb8",
+  authDomain: "photorage-a22e5.firebaseapp.com",
+  projectId: "photorage-a22e5",
+  storageBucket: "photorage-a22e5.appspot.com",
+  messagingSenderId: "407965560210",
+  appId: "1:407965560210:web:0b126d225b49622a6d254b",
 };
 
 const app = initializeApp(firebaseConfig);

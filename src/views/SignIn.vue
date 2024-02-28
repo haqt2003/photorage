@@ -40,11 +40,7 @@
         </div>
         <div class="mt-7 flex justify-between items-center">
           <div class="flex items-center">
-            <input
-              type="checkbox"
-              v-model="isRemember"
-              class="w-4 h-4 cursor-pointer checkItem"
-            />
+            <input type="checkbox" class="w-4 h-4 cursor-pointer checkItem" />
             <span class="ml-2">Remember me</span>
           </div>
           <div class="flex items-center">
