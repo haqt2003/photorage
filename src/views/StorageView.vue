@@ -27,7 +27,7 @@
         </div>
       </div>
       <div
-        class="flex justify-between items-center flex-wrap mt-8 cursor-pointer"
+        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center flex-wrap mt-8 lg:mt-10 cursor-pointer"
       >
         <div
           @click.self="goToDetails"
@@ -66,6 +66,7 @@ export default {
     }
 
     async function logOut() {
+      localStorage.setItem("loggedIn", "false");
       await signout();
       router.push({ name: "SignIn", params: {} });
     }
@@ -108,16 +109,6 @@ export default {
 
 <style lang="css" scoped>
 .img {
-  width: 47.7%;
   aspect-ratio: 1 / 1;
-  margin-top: 4.6%;
-}
-
-@media screen and (min-width: 600px) {
-  .img {
-    width: 32%;
-    aspect-ratio: 1 / 1;
-    margin-top: 2%;
-  }
 }
 </style>

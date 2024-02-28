@@ -40,7 +40,11 @@
         </div>
         <div class="mt-7 flex justify-between items-center">
           <div class="flex items-center">
-            <input type="checkbox" class="w-4 h-4 cursor-pointer" />
+            <input
+              type="checkbox"
+              v-model="isRemember"
+              class="w-4 h-4 cursor-pointer checkItem"
+            />
             <span class="ml-2">Remember me</span>
           </div>
           <div class="flex items-center">
@@ -74,7 +78,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useSignIn } from "@/composables/useSignIn";
 import { useResetPassword } from "@/composables/useResetPassword";
@@ -97,6 +101,13 @@ export default {
       }
     }
 
+    const initInfo = () => {
+      if (localStorage.getItem("email") && localStorage.getItem("password")) {
+        email.value = localStorage.getItem("email");
+        password.value = localStorage.getItem("password");
+      }
+    };
+
     const onResetPassword = async () => {
       await resetPassword(email.value);
       document.getElementById("forgotPassword").innerHTML = "Check your email!";
@@ -104,9 +115,21 @@ export default {
 
     const onSignIn = async () => {
       await signin(email.value, password.value);
-      if (!error.value) router.push({ name: "UploadView", params: {} });
-      else alert(error.value);
+      if (!error.value) {
+        localStorage.clear();
+        const checkbox = document.querySelector(".checkItem");
+        if (checkbox.checked) {
+          localStorage.setItem("email", email.value);
+          localStorage.setItem("password", password.value);
+        }
+        localStorage.setItem("loggedIn", "true");
+        router.push({ name: "UploadView", params: {} });
+      } else alert(error.value);
     };
+
+    onMounted(() => {
+      initInfo();
+    });
 
     return {
       email,
