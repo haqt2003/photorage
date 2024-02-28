@@ -67,7 +67,6 @@ export default {
     }
 
     async function logOut() {
-      localStorage.setItem("loggedIn", "false");
       await signout();
       router.push({ name: "SignIn", params: {} });
     }

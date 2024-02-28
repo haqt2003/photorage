@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { auth } from "@/configs/firebase";
+import { useUser } from "@/composables/useUser";
 
 const requireAuth = (to, from, next) => {
-  const user = auth.currentUser;
-  const loggedIn = localStorage.getItem("loggedIn");
-  if (!user && !loggedIn) next({ name: "SignIn", params: {} });
+  const { getUser } = useUser();
+  const { user } = getUser();
+  if (!user) next({ name: "SignIn", params: {} });
   else next();
 };
 
@@ -39,6 +39,7 @@ const routes = [
     name: "DetailsView",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/DetailsView.vue"),
+    beforeEnter: requireAuth,
   },
 ];
 

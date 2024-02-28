@@ -65,6 +65,7 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSignOut } from "@/composables/useSignOut";
 import { useDelete } from "@/composables/useDelete";
+import { useUser } from "@/composables/useUser";
 export default {
   setup() {
     const isLogout = ref(false);
@@ -72,6 +73,8 @@ export default {
     const route = useRoute();
     const { deleteImage } = useDelete();
     const { signout } = useSignOut();
+    const { getUser } = useUser();
+    const { user } = getUser();
 
     function onBack() {
       router.push({ name: "StorageView", params: {} });
@@ -82,7 +85,6 @@ export default {
     }
 
     async function logOut() {
-      localStorage.setItem("loggedIn", "false");
       await signout();
       router.push({ name: "SignIn", params: {} });
     }
@@ -123,6 +125,7 @@ export default {
     }
 
     return {
+      user,
       isLogout,
       onBack,
       onLogout,

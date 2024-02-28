@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { useGetFile } from "@/composables/useGetFile";
 import { useSignOut } from "@/composables/useSignOut";
@@ -66,7 +66,6 @@ export default {
     }
 
     async function logOut() {
-      localStorage.setItem("loggedIn", "false");
       await signout();
       router.push({ name: "SignIn", params: {} });
     }
@@ -91,7 +90,9 @@ export default {
       }
     }
 
-    getData();
+    onBeforeMount(() => {
+      getData();
+    });
 
     return {
       getData,

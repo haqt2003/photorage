@@ -118,7 +118,6 @@ export default {
           localStorage.setItem("email", email.value);
           localStorage.setItem("password", password.value);
         }
-        localStorage.setItem("loggedIn", "true");
         router.push({ name: "UploadView", params: {} });
       } else alert(error.value);
     };
